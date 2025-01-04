@@ -21,6 +21,7 @@ requirements:
   host:
     - pip
     - python {{ python_min }}
+    - setuptools
   run:
     - dtoolcore >=3.0.0
     - python >={{ python_min }}
