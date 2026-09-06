@@ -1,0 +1,53 @@
+schema_version: 1
+
+context:
+  name: dtool_utils
+  version: "0.1.0"
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/dtool_utils/dtool_utils-${{ version }}.tar.gz
+  sha256: e86dba9151214a3e9d15110e76ba03fd258d880e286eb074392ff5c4dd0bc3a6
+  patches:
+    - setup.patch
+
+build:
+  number: 2
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+
+requirements:
+  host:
+    - pip
+    - python ${{ python_min }}.*
+    - setuptools
+  run:
+    - dtoolcore >=3.0.0
+    - python >=${{ python_min }}
+    - ruamel.yaml
+
+tests:
+  - python:
+      imports:
+        - dtool_utils
+      pip_check: true
+      python_version:
+        - ${{ python_min }}
+        - "*"
+
+about:
+  license: MIT
+  license_file: LICENSE.rst
+  summary: Dtool utility functions and classes
+  description: |
+    Dtool utility functions and classes
+  homepage: https://pypi.org/project/dtool-utils/
+  repository: https://pypi.org/project/dtool-utils/
+  documentation: https://pypi.org/project/dtool-utils/
+
+extra:
+  recipe-maintainers:
+    - jan-janssen
